@@ -4,11 +4,14 @@ const path       = require ('path');
 const app        = express ();
 
 require ('./app/Config/constant');
-require ('./app/Config/connection');
 require ('./app/Config/config');
+require ('./app/Config/connection');
+
 
 var apiRoutes = require('./app/Routes/admin');
 
+app.set('views', './app/views');
+app.set('view engine', 'ejs');
 
 app.use (bodyParser.json ());
 app.use (bodyParser.urlencoded ({extended: false}));
