@@ -14,3 +14,5 @@ authController.apiAuth = function (req, res, next) {
     }
   });
 };
+
+module.exports = authController;
