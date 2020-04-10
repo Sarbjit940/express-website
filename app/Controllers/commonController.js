@@ -1,4 +1,5 @@
-let commonController = {}
+let nodeMailer = require('nodemailer'); 
+let commonController = {};
 
 commonController.updatetable = function (updateTableObj, tableName, id, whereColumn = 'id') {
     return new Promise((resolve, reject) => {
@@ -26,5 +27,23 @@ commonController.insertInDb = function (insertObj, tableName) {
             reject(error)
         }
     })
+}
+
+commonController.sendEmail = function (mailObj) {
+    return new Promise ( async (resolve, reject)=>{
+        try {
+           var transporter = nodeMailer.createTransport({
+                service: SERVICE,
+                auth: {
+                    user: SENDER.MAIL,
+                    pass: SENDER.PASS
+                }
+           }); 
+           let mailResult = await transporter.sendMail(mailObj);
+           resolve({mailResult});
+        } catch (error) {
+            reject(error);
+        }
+    });
 }
 module.exports = commonController
