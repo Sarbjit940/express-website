@@ -4,8 +4,9 @@ function sqlConnection() {
     var connectionPool  = mysql.createPool({
         host : HOST,
         user : USER,
-        // password : PASSWORD,
-        database: DATABASE
+        password : PASSWORD,
+        database: DATABASE,
+        port: 3306
     });
     global.connectionPool = connectionPool;
     connectionPool.on("enqueue", function(){console.log("connection  queued")});
