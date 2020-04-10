@@ -7,5 +7,6 @@ var adminController = require('../Controllers/adminController');
 var authControleer = require('../Middleware/auth');
 
 router.get('/index', authControleer.apiAuth,  adminController.index);
+router.get('/sendInfo', authControleer.apiAuth,  adminController.sendInfo);
 
 module.exports = router;
