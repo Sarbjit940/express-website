@@ -31,7 +31,6 @@ adminController.sendInfo = async (req, res) => {
     }
     let user_email = req.query.user_email;
     let text = req.query.text;
-    console.log(SENDER);
     let mailObj = {
       from: FROM,
       to: user_email,
