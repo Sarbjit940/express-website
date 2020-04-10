@@ -4,6 +4,8 @@ const app = express();
 const router = express.Router();
 
 var adminController = require('../Controllers/adminController');
-router.get('/index', adminController.index);
+var authControleer = require('../Middleware/auth');
+
+router.get('/index', authControleer.apiAuth,  adminController.index);
 
 module.exports = router;
