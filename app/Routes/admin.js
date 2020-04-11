@@ -8,5 +8,6 @@ var authControleer = require('../Middleware/auth');
 
 router.get('/index', authControleer.apiAuth,  adminController.index);
 router.get('/sendInfo', authControleer.apiAuth,  adminController.sendInfo);
+router.get('/sendInfoSMS', authControleer.apiAuth,  adminController.sendInfoSMS);
 
 module.exports = router;
