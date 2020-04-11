@@ -1,4 +1,5 @@
-let nodeMailer = require('nodemailer'); 
+const nodeMailer = require('nodemailer'); 
+const Nexmo = require('nexmo');
 let commonController = {};
 
 commonController.updatetable = function (updateTableObj, tableName, id, whereColumn = 'id') {
@@ -42,6 +43,33 @@ commonController.sendEmail = function (mailObj) {
            let mailResult = await transporter.sendMail(mailObj);
            resolve({mailResult});
         } catch (error) {
+            reject(error);
+        }
+    });
+}
+commonController.sendSMS = function (smsObj) {
+    console.log("smsObj========>", smsObj);
+    return new Promise(async (resolve, reject) => {
+        try {
+            const nexmo = new Nexmo({
+                apiKey: NEXMO_API_KEY,
+                apiSecret: NEXMO_API_SECRET
+            });
+          nexmo.message.sendSms(smsObj.from, smsObj.to, smsObj.text, (err, responseData) => {
+            if (err) {
+                console.log(err);
+            } else {
+                if(responseData.messages[0]['status'] === "0") {
+                    console.log("Message sent successfully.");
+                    resolve(responseData);
+                } else {
+                    console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+                    reject(responseData);
+                }
+            }
+        });
+        } catch (error) {
+            console.log("error=======>" , error);
             reject(error);
         }
     });

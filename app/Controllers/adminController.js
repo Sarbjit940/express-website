@@ -45,4 +45,22 @@ adminController.sendInfo = async (req, res) => {
     Response.sendErrorResponse(req, res, error);
   }
 }
+adminController.sendInfoSMS = async (req, res) => {
+  try {
+    if(!req.query || !req.query.text || !req.query.to) {
+      return Response.sendErrorResponse(req, res, ['Please provide Info {Receiver And Text Message}']);
+    }
+    let to = req.query.to;
+    let text = req.query.text;
+    let smsObj = {
+      from : SMS_FROM,
+      to : to ,
+      text : text
+    }
+    let smsResponse = await commonController.sendSMS(smsObj);
+    return Response.sendSuccessResponse(req, res, ['SMS Successfully sent'], smsResponse);
+  } catch (error) {
+    console.log("error", error);
+  }
+}
 module.exports = adminController
