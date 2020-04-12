@@ -5,7 +5,7 @@ adminModel.userDetails = function(userDetail) {
   return new Promise(async (resolve, reject) => {
     try {
       let user = await commonController.insertInDb(userDetail, "users");
-      resolve({ message: ["User Successfully Inserted"], data: user });
+      resolve(user);
     } catch (error) {
       console.log("error =========>", error);
       return reject(error);
